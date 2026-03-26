@@ -19,3 +19,17 @@ SELECT
         2
     )                                               AS fulfillment_rate_pct
 FROM orders;
+
+
+
+SELECT
+    COUNT(*)                                         AS total_orders,
+    SUM(CASE WHEN order_status = 'Cancelled'
+             THEN 1 ELSE 0 END)                      AS cancelled_orders,
+    ROUND(
+        SUM(CASE WHEN order_status = 'Cancelled'
+                 THEN 1 ELSE 0 END) * 100.0
+        / COUNT(*),
+        2
+    )                                                AS cancellation_rate_pct
+FROM orders;
